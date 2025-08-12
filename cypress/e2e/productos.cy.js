@@ -11,7 +11,13 @@ describe('Prueba de seleccion de producto', () => {
     });
 
     it('visualiza producto y regresa a la página de inventario', () => {
-      cy.get('#item_4_img_link > .inventory_item_img').click();
-      cy.contains('button', 'Back').should('exist').click({ force: true });
+      cy.get('#item_4_img_link > .inventory_item_img').should('exist').click();
+      cy.get('.btn_primary').should('exist');
+      cy.get('.inventory_details_desc').should('exist').and('not.be.empty');
+      cy.get('.inventory_details_img').should('exist').and('be.visible');
+      cy.get('.inventory_details_price').contains(/\$\d+(\.\d{2})?/);
+      cy.get('#shopping_cart_container').should('exist').should('be.visible');
+      cy.get('.bm-burger-button > button').should('exist').should('not.be.disabled');
+      cy.get('.inventory_details_back_button').contains('Back').should('exist').click({ force: true });
     });
 });
